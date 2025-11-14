@@ -18,7 +18,7 @@
             --light-bg: #233554;
             --card-bg: rgba(17, 34, 64, 0.7);
             --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-            --border-radius: 4px;
+            --border-radius: 16px;
             --box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
             --header-height: 80px;
         }
@@ -64,8 +64,6 @@
             margin: 0 auto;
             padding: 0 20px;
             height: 100%;
-            display: flex;
-            align-items: center;
         }
         
         .projects-section {
@@ -74,25 +72,28 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding: 100px 0;
+            padding: 120px 0 60px;
         }
         
         .section-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            margin-bottom: 30px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 50px;
             color: var(--text-primary);
             position: relative;
             display: inline-block;
-            font-weight: 600;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
         }
         
         .section-title::after {
             content: '';
             display: block;
-            width: 100px;
-            height: 2px;
-            background-color: var(--secondary);
-            margin-top: 10px;
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), transparent);
+            margin: 15px auto 0;
+            border-radius: 2px;
         }
         
         /* Projects Cards Layout */
@@ -102,88 +103,147 @@
         
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-            margin-top: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .projects-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .project-card {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--card-bg), rgba(17, 34, 64, 0.9));
             border-radius: var(--border-radius);
-            padding: 25px;
+            padding: 35px 30px;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
-            border: 1px solid rgba(100, 255, 218, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.15);
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transition: var(--transition);
         }
         
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--secondary);
-            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+            box-shadow: 0 20px 40px -15px rgba(2, 12, 27, 0.8);
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
         
         .project-icon {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--secondary);
-            margin-bottom: 20px;
-            text-align: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            background: rgba(100, 255, 218, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .project-title-container {
+            flex: 1;
         }
         
         .project-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: var(--text-primary);
-            text-align: center;
+            line-height: 1.3;
         }
         
         .project-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 15px;
-            justify-content: center;
         }
         
         .tech-tag {
-            background: rgba(100, 255, 218, 0.1);
+            background: rgba(100, 255, 218, 0.15);
             color: var(--secondary);
-            padding: 4px 10px;
-            border-radius: 15px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
         }
         
         .project-description {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
             flex-grow: 1;
         }
         
         .project-features {
             list-style: none;
-            margin-top: 15px;
-            flex-grow: 1;
         }
         
         .project-features li {
-            padding: 6px 0;
+            padding: 10px 0;
             color: var(--text-secondary);
             position: relative;
-            padding-left: 15px;
-            font-size: 0.9rem;
+            padding-left: 25px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(136, 146, 176, 0.1);
+            transition: var(--transition);
+        }
+        
+        .project-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .project-features li:hover {
+            color: var(--text-primary);
+            transform: translateX(5px);
         }
         
         .project-features li::before {
-            content: '▹';
+            content: '▸';
             position: absolute;
             left: 0;
             color: var(--secondary);
-            font-size: 0.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .project-features li:hover::before {
+            transform: scale(1.2);
         }
         
         /* ===== HEADER & NAVIGATION ===== */
@@ -193,7 +253,7 @@
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background-color: rgba(10, 25, 47, 0.9);
+            background-color: rgba(10, 25, 47, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: var(--transition);
@@ -209,6 +269,9 @@
             justify-content: space-between;
             align-items: center;
             height: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .logo {
@@ -227,47 +290,42 @@
         .nav-links {
             display: flex;
             list-style: none;
+            background: rgba(17, 34, 64, 0.8);
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 4px 15px rgba(2, 12, 27, 0.5);
         }
         
         .nav-links li {
-            margin-left: 2rem;
+            margin: 0 5px;
         }
         
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: var(--transition);
-            padding: 0.5rem 0;
+            padding: 8px 16px;
+            border-radius: 30px;
             position: relative;
+            display: block;
         }
         
+        /* Remove underline for all navigation items */
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
-            transition: var(--transition);
+            display: none;
         }
         
         .nav-links a:hover {
             color: var(--secondary);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
+            background: rgba(100, 255, 218, 0.1);
         }
         
         .nav-links a.active {
-            color: var(--secondary);
-        }
-        
-        .nav-links a.active::after {
-            width: 100%;
+            color: var(--primary);
+            background: var(--secondary);
+            box-shadow: 0 2px 10px rgba(100, 255, 218, 0.3);
         }
         
         .mobile-menu-btn {
@@ -353,13 +411,53 @@
         /* ===== RESPONSIVE STYLES ===== */
         @media (max-width: 1200px) {
             .projects-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .projects-grid-bottom {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 8px 10px;
             }
         }
         
         @media (max-width: 768px) {
             .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .projects-grid-bottom {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+            
+            .project-card {
+                padding: 25px 20px;
+            }
+            
+            .project-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .project-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+                align-self: center;
             }
             
             .mobile-menu-btn {
@@ -368,31 +466,60 @@
             
             .nav-links {
                 position: fixed;
-                top: var(--header-height);
-                right: -100%;
-                width: 70%;
-                height: calc(100vh - var(--header-height));
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
                 background: var(--dark-bg);
                 flex-direction: column;
                 align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
+                justify-content: center;
                 transition: var(--transition);
-                border-left: 1px solid rgba(100, 255, 218, 0.1);
+                z-index: 1000;
+                border-radius: 0;
+                padding: 20px;
+                box-shadow: none;
             }
             
             .nav-links.active {
-                right: 0;
+                left: 0;
             }
             
             .nav-links li {
-                margin: 1rem 0;
+                margin: 0.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* Adjusted mobile navigation size */
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+                border-radius: 10px;
+                width: 100%;
+                display: block;
+            }
+            
+            .nav-links a:hover {
+                background: rgba(100, 255, 218, 0.1);
             }
         }
         
         @media (max-width: 576px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .project-card {
+                padding: 20px;
+            }
+            
+            .project-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2.2rem;
+            }
+            
+            /* Further adjust mobile navigation for very small screens */
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.7rem 0.9rem;
             }
         }
     </style>
@@ -411,7 +538,7 @@
 
     <!-- Header -->
     <header id="header">
-        <div class="container nav-container">
+        <div class="nav-container">
             <a href="index.html" class="logo">V<span>A</span></a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -432,22 +559,28 @@
     <section class="projects-section" id="projects">
         <div class="container">
             <div class="projects-container">
-                <h2 class="section-title">Projects</h2>
+                <h2 class="section-title">Cybersecurity Projects</h2>
+                
+                <!-- First Row - 3 Projects -->
                 <div class="projects-grid">
                     <!-- Intrusion Detection System Card -->
                     <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-shield-alt"></i>
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="project-title-container">
+                                <h3 class="project-title">Intrusion Detection System</h3>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Scapy</span>
+                                    <span class="tech-tag">Machine Learning</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="project-title">Intrusion Detection System</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Scapy</span>
-                            <span class="tech-tag">ML</span>
-                        </div>
-                        <div class="project-description">
-                            Real-time network monitoring system with signature-based threat detection capabilities.
-                        </div>
+                        <p class="project-description">
+                            Advanced real-time network monitoring system with signature-based threat detection and machine learning capabilities for proactive security.
+                        </p>
                         <ul class="project-features">
                             <li>Real-time network traffic analysis</li>
                             <li>Signature-based threat detection</li>
@@ -458,17 +591,22 @@
                     
                     <!-- SIEM Log Collector Card -->
                     <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-server"></i>
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="project-title-container">
+                                <h3 class="project-title">SIEM Log Collector</h3>
+                                <div class="project-tech">
+                                    <span class="tech-tag">ELK Stack</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Security Analytics</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="project-title">SIEM Log Collector</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">ELK Stack</span>
-                            <span class="tech-tag">Python</span>
-                        </div>
-                        <div class="project-description">
-                            Centralized log collection system from multiple data sources and systems for security monitoring.
-                        </div>
+                        <p class="project-description">
+                            Centralized log collection and analysis system from multiple data sources for comprehensive security monitoring and event correlation.
+                        </p>
                         <ul class="project-features">
                             <li>Centralized log collection</li>
                             <li>Multiple data source integration</li>
@@ -479,39 +617,51 @@
                     
                     <!-- Vulnerability Scanner Tool Card -->
                     <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-search"></i>
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="project-title-container">
+                                <h3 class="project-title">Vulnerability Scanner</h3>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Nmap</span>
+                                    <span class="tech-tag">Security Assessment</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="project-title">Vulnerability Scanner Tool</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Nmap</span>
-                        </div>
-                        <div class="project-description">
-                            Automated network security scanning tool with port detection and comprehensive vulnerability assessment.
-                        </div>
+                        <p class="project-description">
+                            Automated network security scanning tool with comprehensive port detection, service enumeration, and vulnerability assessment capabilities.
+                        </p>
                         <ul class="project-features">
                             <li>Automated network scanning</li>
                             <li>Port detection & service enumeration</li>
                             <li>Vulnerability assessment</li>
-                            <li>Detailed reporting</li>
+                            <li>Detailed security reporting</li>
                         </ul>
                     </div>
-                    
+                </div>
+                
+                <!-- Second Row - 2 Projects -->
+                <div class="projects-grid-bottom">
                     <!-- WeatherVerse Pro Card -->
                     <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-cloud-sun"></i>
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-cloud-sun"></i>
+                            </div>
+                            <div class="project-title-container">
+                                <h3 class="project-title">WeatherVerse Pro</h3>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Spring Boot</span>
+                                    <span class="tech-tag">MySQL</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="project-title">WeatherVerse Pro</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
-                        <div class="project-description">
-                            Comprehensive weather application with real-time data, REST APIs and secure user authentication.
-                        </div>
+                        <p class="project-description">
+                            Comprehensive weather application with real-time data, REST API integration, and secure user authentication system.
+                        </p>
                         <ul class="project-features">
                             <li>Real-time weather data</li>
                             <li>REST API integration</li>
@@ -522,18 +672,22 @@
                     
                     <!-- CryptoVerse Pro Card -->
                     <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-chart-line"></i>
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="project-title-container">
+                                <h3 class="project-title">CryptoVerse Pro</h3>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Spring Boot</span>
+                                    <span class="tech-tag">PostgreSQL</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="project-title">CryptoVerse Pro</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                        <div class="project-description">
-                            Cryptocurrency tracking platform with portfolio management and exchange API integration.
-                        </div>
+                        <p class="project-description">
+                            Advanced cryptocurrency tracking platform with portfolio management, exchange API integration, and real-time market data.
+                        </p>
                         <ul class="project-features">
                             <li>Cryptocurrency price tracking</li>
                             <li>Portfolio management</li>
@@ -566,6 +720,9 @@
                 mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
                     ? '<i class="fas fa-times"></i>' 
                     : '<i class="fas fa-bars"></i>';
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
             });
 
             // Close mobile menu when clicking on a link
@@ -574,6 +731,7 @@
                 item.addEventListener('click', () => {
                     navLinks.classList.remove('active');
                     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    document.body.style.overflow = '';
                 });
             });
 
@@ -589,10 +747,13 @@
 
             // Add floating elements dynamically
             const floatingContainer = document.getElementById('floatingElements');
-            for (let i = 0; i < 12; i++) {
+            // Fewer elements on mobile for better performance
+            const elementCount = window.innerWidth < 768 ? 6 : 12;
+            
+            for (let i = 0; i < elementCount; i++) {
                 const element = document.createElement('div');
                 element.classList.add('floating-element');
-                const size = Math.random() * 100 + 50;
+                const size = Math.random() * 80 + 30;
                 element.style.width = `${size}px`;
                 element.style.height = `${size}px`;
                 element.style.top = `${Math.random() * 100}%`;
@@ -601,96 +762,117 @@
                 floatingContainer.appendChild(element);
             }
 
-            // Initialize particles.js
-            particlesJS('particles-js', {
-                particles: {
-                    number: {
-                        value: 80,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: '#64ffda'
-                    },
-                    shape: {
-                        type: 'circle',
-                        stroke: {
-                            width: 0,
-                            color: '#000000'
-                        }
-                    },
-                    opacity: {
-                        value: 0.5,
-                        random: true,
-                        anim: {
-                            enable: true,
-                            speed: 1,
-                            opacity_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    size: {
-                        value: 3,
-                        random: true,
-                        anim: {
-                            enable: true,
-                            speed: 2,
-                            size_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#64ffda',
-                        opacity: 0.2,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1,
-                        direction: 'none',
-                        random: true,
-                        straight: false,
-                        out_mode: 'out',
-                        bounce: false,
-                        attract: {
-                            enable: false,
-                            rotateX: 600,
-                            rotateY: 1200
-                        }
-                    }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: 'grab'
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: 'push'
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 0.5
+            // Initialize particles.js with mobile-optimized settings
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: window.innerWidth < 768 ? 40 : 80,
+                            density: {
+                                enable: true,
+                                value_area: window.innerWidth < 768 ? 400 : 800
                             }
                         },
-                        push: {
-                            particles_nb: 4
+                        color: {
+                            value: '#64ffda'
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: {
+                                width: 0,
+                                color: '#000000'
+                            }
+                        },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: window.innerWidth < 768 ? 2 : 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: window.innerWidth < 768 ? false : true,
+                            distance: 150,
+                            color: '#64ffda',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: window.innerWidth < 768 ? 0.5 : 1,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
                         }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: window.innerWidth < 768 ? false : true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 0.5
+                                }
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    // Update particles if needed
+                    if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                        window.pJSDom[0].pJS.fn.vendors.destroy();
+                        window.pJSDom[0].pJS.fn.vendors.start();
                     }
-                },
-                retina_detect: true
+                }, 250);
             });
+
+            // Touch event improvements for mobile
+            document.addEventListener('touchstart', function() {}, {passive: true});
         });
+
+        // Prevent zoom on double tap (iOS)
+        document.addEventListener('touchend', function (e) {
+            if (e.touches && e.touches.length < 2) {
+                return;
+            }
+            e.preventDefault();
+        }, false);
     </script>
 </body>
 </html>
