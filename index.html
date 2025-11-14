@@ -20,7 +20,7 @@
             --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
             --border-radius: 4px;
             --box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-            --header-height: 80px;
+            --header-height: 70px;
         }
         
         /* ===== BASE STYLES ===== */
@@ -37,6 +37,7 @@
 
         html, body {
             height: 100%;
+            overflow-x: hidden;
         }
         
         body {
@@ -44,13 +45,12 @@
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
             position: relative;
         }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         ::-webkit-scrollbar-track {
@@ -71,17 +71,16 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            height: 100%;
-            display: flex;
-            align-items: center;
+            width: 100%;
         }
         
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding: 80px 0 40px;
         }
         
         .hero-bg {
@@ -108,32 +107,33 @@
             z-index: -1;
         }
         
-        /* Layout: place text and image side-by-side on wide screens */
+        /* Mobile-first layout */
         .hero .container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             gap: 40px;
+            text-align: center;
         }
 
         .hero-content {
-            flex: 1 1 auto;
-            max-width: unset;
-            order: 1;
+            flex: 1;
+            max-width: 100%;
+            order: 2;
         }
 
         .hero-image-section {
-            margin-top: 0;
+            order: 1;
             display: flex;
-            justify-content: flex-end;
-            width: 360px;
-            order: 2;
+            justify-content: center;
+            width: 100%;
         }
 
         .profile-image-container {
             position: relative;
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             cursor: pointer;
         }
         
@@ -142,31 +142,14 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--secondary);
-            box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+            border: 3px solid var(--secondary);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
             transition: var(--transition);
-            display: none;
-        }
-        
-        .profile-image.loaded {
-            display: block;
-            animation: profileImageLoad 0.6s ease-out;
-        }
-        
-        @keyframes profileImageLoad {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
         
         .profile-image:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(100, 255, 218, 0.5);
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.5);
         }
         
         .image-upload-prompt {
@@ -175,7 +158,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(17, 34, 64, 0.8);
+            background: rgba(17, 34, 64, 0.9);
             border: 3px dashed var(--secondary);
             border-radius: 50%;
             display: flex;
@@ -196,39 +179,28 @@
         }
         
         .image-upload-prompt i {
-            font-size: 3rem;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
         
         .image-upload-prompt p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 500;
         }
         
         .image-upload-prompt.hidden {
             display: none;
         }
-        
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-            }
-            
-            .profile-image-container {
-                width: 200px;
-                height: 200px;
-            }
-        }
 
         .intro-text {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: clamp(1rem, 4vw, 1.5rem);
             color: var(--secondary);
             margin-bottom: 10px;
             font-family: 'JetBrains Mono', monospace;
         }
         
         .hero-name {
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: 700;
             margin-bottom: 10px;
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--secondary) 100%);
@@ -239,7 +211,7 @@
         }
         
         .hero-tagline {
-            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
             color: var(--text-secondary);
             margin-bottom: 20px;
             font-weight: 600;
@@ -247,32 +219,37 @@
         
         .hero-description {
             max-width: 600px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-secondary);
-            margin-bottom: 40px;
+            margin: 0 auto 30px;
             line-height: 1.6;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .cta-button {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 12px 25px;
             background: transparent;
             color: var(--secondary);
             border: 1px solid var(--secondary);
             border-radius: var(--border-radius);
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-family: 'JetBrains Mono', monospace;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            flex: 1;
+            min-width: 140px;
+            max-width: 200px;
+            text-align: center;
         }
         
         .cta-button::before {
@@ -311,8 +288,6 @@
             color: var(--secondary);
         }
         
-
-        
         /* ===== HEADER & NAVIGATION ===== */
         header {
             position: fixed;
@@ -320,7 +295,7 @@
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background-color: rgba(10, 25, 47, 0.9);
+            background-color: rgba(10, 25, 47, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: var(--transition);
@@ -328,7 +303,7 @@
         }
         
         header.scrolled {
-            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+            box-shadow: 0 5px 20px -10px rgba(2, 12, 27, 0.7);
         }
         
         .nav-container {
@@ -336,15 +311,17 @@
             justify-content: space-between;
             align-items: center;
             height: 100%;
+            padding: 0 20px;
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--secondary);
             text-decoration: none;
             display: flex;
             align-items: center;
+            z-index: 1001;
         }
         
         .logo span {
@@ -357,7 +334,7 @@
         }
         
         .nav-links li {
-            margin-left: 2rem;
+            margin-left: 1.5rem;
         }
         
         .nav-links a {
@@ -404,6 +381,7 @@
             color: var(--secondary);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
         }
         
         /* ===== FLOATING ELEMENTS ===== */
@@ -479,42 +457,145 @@
         
         /* ===== RESPONSIVE STYLES ===== */
         @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 70px 0 30px;
+                min-height: calc(100vh - 70px);
+            }
+            
             .mobile-menu-btn {
                 display: block;
             }
             
             .nav-links {
                 position: fixed;
-                top: var(--header-height);
-                right: -100%;
-                width: 70%;
-                height: calc(100vh - var(--header-height));
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
                 background: var(--dark-bg);
                 flex-direction: column;
                 align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
+                justify-content: center;
                 transition: var(--transition);
-                border-left: 1px solid rgba(100, 255, 218, 0.1);
+                border-right: 1px solid rgba(100, 255, 218, 0.1);
+                z-index: 1000;
             }
             
             .nav-links.active {
-                right: 0;
+                left: 0;
             }
             
             .nav-links li {
-                margin: 1rem 0;
+                margin: 1.5rem 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.1rem;
+                padding: 0.7rem 0;
+            }
+            
+            .profile-image-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .hero-description {
+                font-size: 0.95rem;
+                padding: 0 10px;
             }
             
             .cta-buttons {
-                justify-content: center;
+                gap: 10px;
+            }
+            
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero .container {
+                gap: 30px;
+            }
+            
+            .profile-image-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .hero-name {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+            }
+            
+            .hero-tagline {
+                font-size: clamp(1.1rem, 6vw, 2rem);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        /* Tablet and larger screens */
+        @media (min-width: 769px) {
+            .hero .container {
+                flex-direction: row;
+                text-align: left;
+                justify-content: space-between;
+            }
+
+            .hero-content {
+                order: 1;
+                max-width: 60%;
+            }
+
+            .hero-image-section {
+                order: 2;
+                width: auto;
+                justify-content: flex-end;
+            }
+
+            .profile-image-container {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .cta-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        /* Prevent horizontal scroll on mobile */
+        @media (max-width: 400px) {
+            html, body {
+                overflow-x: hidden;
+            }
+            
+            .container {
+                padding: 0 10px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
+    <div class="loading-screen hidden" id="loadingScreen">
         <div class="loader"></div>
     </div>
 
@@ -526,7 +607,7 @@
 
     <!-- Header -->
     <header id="header">
-        <div class="container nav-container">
+        <div class="nav-container">
             <a href="index.html" class="logo">V<span>A</span></a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -559,8 +640,8 @@
             </div>
             <div class="hero-image-section">
                 <div class="profile-image-container">
-    <img src="assets/images/profile-image.jpg" alt="Venkatesh Arikatla" class="profile-image loaded">
-</div>
+                    <img src="assets/images/profile-image.jpg" alt="Venkatesh Arikatla" class="profile-image">
+                </div>
             </div>
         </div>
     </section>
@@ -570,59 +651,21 @@
     <script>
         // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Loading screen
-            const loadingScreen = document.getElementById('loadingScreen');
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-            }, 0);
+            // Loading screen is hidden by default for zero loading time
 
-            // Profile image upload functionality
-            const profileImage = document.getElementById('profileImage');
-            const imageInput = document.getElementById('imageInput');
-            const uploadPrompt = document.getElementById('uploadPrompt');
-            const profileImageContainer = document.querySelector('.profile-image-container');
-
-            if (profileImageContainer && imageInput) {
-                // Click to upload
-                profileImageContainer.addEventListener('click', () => {
-                    imageInput.click();
-                });
-
-                // Handle file selection
-                imageInput.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            profileImage.src = event.target.result;
-                            profileImage.classList.add('loaded');
-                            uploadPrompt.classList.add('hidden');
-                            
-                            // Save to localStorage
-                            localStorage.setItem('profilePhoto', event.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-
-                // Load saved image from localStorage
-                const savedPhoto = localStorage.getItem('profilePhoto');
-                if (savedPhoto) {
-                    profileImage.src = savedPhoto;
-                    profileImage.classList.add('loaded');
-                    uploadPrompt.classList.add('hidden');
-                }
-            }
-
-            // Mobile menu toggle
+            // Mobile menu functionality
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
+            const header = document.getElementById('header');
             
             mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                const isActive = navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = isActive 
                     ? '<i class="fas fa-times"></i>' 
                     : '<i class="fas fa-bars"></i>';
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = isActive ? 'hidden' : '';
             });
 
             // Close mobile menu when clicking on a link
@@ -631,11 +674,11 @@
                 item.addEventListener('click', () => {
                     navLinks.classList.remove('active');
                     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    document.body.style.overflow = '';
                 });
             });
 
             // Header scroll effect
-            const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     header.classList.add('scrolled');
@@ -646,10 +689,13 @@
 
             // Add floating elements dynamically
             const floatingContainer = document.getElementById('floatingElements');
-            for (let i = 0; i < 12; i++) {
+            // Fewer elements on mobile for better performance
+            const elementCount = window.innerWidth < 768 ? 6 : 12;
+            
+            for (let i = 0; i < elementCount; i++) {
                 const element = document.createElement('div');
                 element.classList.add('floating-element');
-                const size = Math.random() * 100 + 50;
+                const size = Math.random() * 80 + 30;
                 element.style.width = `${size}px`;
                 element.style.height = `${size}px`;
                 element.style.top = `${Math.random() * 100}%`;
@@ -658,96 +704,117 @@
                 floatingContainer.appendChild(element);
             }
 
-            // Initialize particles.js
-            particlesJS('particles-js', {
-                particles: {
-                    number: {
-                        value: 80,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: '#64ffda'
-                    },
-                    shape: {
-                        type: 'circle',
-                        stroke: {
-                            width: 0,
-                            color: '#000000'
-                        }
-                    },
-                    opacity: {
-                        value: 0.5,
-                        random: true,
-                        anim: {
-                            enable: true,
-                            speed: 1,
-                            opacity_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    size: {
-                        value: 3,
-                        random: true,
-                        anim: {
-                            enable: true,
-                            speed: 2,
-                            size_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#64ffda',
-                        opacity: 0.2,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1,
-                        direction: 'none',
-                        random: true,
-                        straight: false,
-                        out_mode: 'out',
-                        bounce: false,
-                        attract: {
-                            enable: false,
-                            rotateX: 600,
-                            rotateY: 1200
-                        }
-                    }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: 'grab'
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: 'push'
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 0.5
+            // Initialize particles.js with mobile-optimized settings
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: window.innerWidth < 768 ? 40 : 80,
+                            density: {
+                                enable: true,
+                                value_area: window.innerWidth < 768 ? 400 : 800
                             }
                         },
-                        push: {
-                            particles_nb: 4
+                        color: {
+                            value: '#64ffda'
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: {
+                                width: 0,
+                                color: '#000000'
+                            }
+                        },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: window.innerWidth < 768 ? 2 : 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: window.innerWidth < 768 ? false : true,
+                            distance: 150,
+                            color: '#64ffda',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: window.innerWidth < 768 ? 0.5 : 1,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
                         }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: window.innerWidth < 768 ? false : true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 0.5
+                                }
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    // Update particles if needed
+                    if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                        window.pJSDom[0].pJS.fn.vendors.destroy();
+                        window.pJSDom[0].pJS.fn.vendors.start();
                     }
-                },
-                retina_detect: true
+                }, 250);
             });
+
+            // Touch event improvements for mobile
+            document.addEventListener('touchstart', function() {}, {passive: true});
         });
+
+        // Prevent zoom on double tap (iOS)
+        document.addEventListener('touchend', function (e) {
+            if (e.touches && e.touches.length < 2) {
+                return;
+            }
+            e.preventDefault();
+        }, false);
     </script>
 </body>
 </html>
